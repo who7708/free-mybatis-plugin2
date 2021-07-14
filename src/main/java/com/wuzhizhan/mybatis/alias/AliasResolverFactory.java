@@ -18,10 +18,10 @@ public class AliasResolverFactory {
         return new AnnotationAliasResolver(project);
     }
 
-    @NotNull
-    public static AliasResolver createBeanResolver(@NotNull Project project) {
-        return new BeanAliasResolver(project);
-    }
+    // @NotNull
+    // public static AliasResolver createBeanResolver(@NotNull Project project) {
+    //     return new BeanAliasResolver(project);
+    // }
 
     @NotNull
     public static AliasResolver createConfigPackageResolver(@NotNull Project project) {

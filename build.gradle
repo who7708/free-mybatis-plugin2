@@ -1,13 +1,14 @@
 buildscript {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        mavenLocal()
-        mavenCentral()
+        maven { url 'http://maven.aliyun.com/repository/public/' }
+        maven { url 'http://maven.aliyun.com/repository/gradle-plugin/' }
+        // mavenLocal()
+        // mavenCentral()
     }
-
 }
+
 plugins {
-    id "org.jetbrains.intellij" version "0.4.15"
+    id "org.jetbrains.intellij" version "1.1.2"
 }
 
 group = 'cn.wuzhizhan.idea.mybatis'
@@ -17,7 +18,9 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    maven { url 'http://maven.aliyun.com/repository/public/' }
+    maven { url 'http://maven.aliyun.com/repository/gradle-plugin/' }
+    // mavenCentral()
 }
 
 dependencies {
@@ -30,33 +33,34 @@ buildPlugin {
     buildSearchableOptions.enabled = false
 }
 intellij {
-    version "2020.2.4"
-    type "IU"
-    pluginName = 'free-mybatis-plugin'
-    plugins = ['coverage', 'Spring', 'DatabaseTools', 'java']
-    intellij.updateSinceUntilBuild false
+    // pluginName = 'free-mybatis-plugin2'
+    // intellij.updateSinceUntilBuild false
+    // version = "IU-2018.3"
+    // plugins = ['coverage', 'Spring', 'DatabaseTools']
+    version = "IC-2018.3"
+    // plugins = ['coverage', 'Spring', 'DatabaseTools']
 }
-patchPluginXml {
-    changeNotes """
-    <h4>2020.12.09</h4>
-        <ul>
-            <li>修改过期的方法</li>
-            <li>修正笔误</li>
-        </ul>
-    <h4>2020.12.08</h4>
-        <ul>
-            <li>修复新版API不兼容问题</li>
-        </ul>
-    <h4>2019.12.18</h4>
-      <ul>
-        <li>feature:移除jdbc依赖,不用再次输入密码</li>
-        <li>bugfix:修复返回类型检测错误</li>
-        <li>bugfix:mybatis generator修复oracle错误</li>
-        <li>bugfix:mybatis generator修复postgres数据库</li>
-        <li>bugfix:mybatis generator修复xml mapper重复创建</li>
-      </ul>
-     """
-}
+// patchPluginXml {
+//     changeNotes """
+//     <h4>2020.12.09</h4>
+//         <ul>
+//             <li>修改过期的方法</li>
+//             <li>修正笔误</li>
+//         </ul>
+//     <h4>2020.12.08</h4>
+//         <ul>
+//             <li>修复新版API不兼容问题</li>
+//         </ul>
+//     <h4>2019.12.18</h4>
+//       <ul>
+//         <li>feature:移除jdbc依赖,不用再次输入密码</li>
+//         <li>bugfix:修复返回类型检测错误</li>
+//         <li>bugfix:mybatis generator修复oracle错误</li>
+//         <li>bugfix:mybatis generator修复postgres数据库</li>
+//         <li>bugfix:mybatis generator修复xml mapper重复创建</li>
+//       </ul>
+//      """
+// }
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"

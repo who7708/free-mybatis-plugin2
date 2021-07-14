@@ -15,7 +15,6 @@ import com.wuzhizhan.mybatis.dom.model.IdDomElement;
 import com.wuzhizhan.mybatis.service.JavaService;
 import com.wuzhizhan.mybatis.util.Icons;
 import com.wuzhizhan.mybatis.util.JavaUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
@@ -32,7 +31,7 @@ public class MapperLineMarkerProvider extends RelatedItemLineMarkerProvider {
     };
 
     @Override
-    protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
+    protected void collectNavigationMarkers(PsiElement element, Collection<? super RelatedItemLineMarkerInfo> result) {
         if (element instanceof PsiNameIdentifierOwner && JavaUtils.isElementWithinInterface(element)) {
             CommonProcessors.CollectProcessor<IdDomElement> processor = new CommonProcessors.CollectProcessor<IdDomElement>();
             JavaService.getInstance(element.getProject()).process(element, processor);

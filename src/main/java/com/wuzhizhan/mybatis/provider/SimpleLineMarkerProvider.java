@@ -22,7 +22,7 @@ import java.util.Optional;
 public abstract class SimpleLineMarkerProvider<F extends PsiElement, T> extends MarkerProviderAdaptor {
 
     @Override
-    public void collectSlowLineMarkers(@NotNull List<? extends PsiElement> elements, @NotNull Collection<? super LineMarkerInfo<?>> result) {
+    public void collectSlowLineMarkers(List<PsiElement> elements, Collection<LineMarkerInfo> result) {
     }
 
     @SuppressWarnings("unchecked")

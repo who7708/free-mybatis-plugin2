@@ -1,4 +1,4 @@
-Based on <https://gitee.com/wuzhizhan/free-mybatis-plugin> support to idea 2020.2.4。
+Based on <https://gitee.com/wuzhizhan/free-mybatis-plugin2> support to idea 2020.2.4。
 
 [中文](README.md) | 
 [ENGLISH](README_EN.md)
@@ -6,7 +6,7 @@ Based on <https://gitee.com/wuzhizhan/free-mybatis-plugin> support to idea 2020.
 
 ## Description
 A idea plugin for mybatis .
-free-mybatis-plugin is an enchange plugin for idea to supoort mybatis,here is the main functions: 
+free-mybatis-plugin2 is an enchange plugin for idea to supoort mybatis,here is the main functions: 
 - generate mapper xml files
 - navigate from the code to mapper and from the mapper back to code
 - auto code and error tips

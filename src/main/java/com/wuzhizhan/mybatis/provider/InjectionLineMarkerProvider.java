@@ -12,7 +12,6 @@ import com.wuzhizhan.mybatis.util.Icons;
 import com.wuzhizhan.mybatis.util.JavaUtils;
 import com.wuzhizhan.mybatis.util.MapperUtils;
 import org.apache.commons.lang.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -23,7 +22,7 @@ import java.util.Optional;
 public class InjectionLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
     @Override
-    protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
+    protected void collectNavigationMarkers(PsiElement element, Collection<? super RelatedItemLineMarkerInfo> result) {
         if (!(element instanceof PsiField)) return;
         PsiField field = (PsiField) element;
         if (!isTargetField(field)) return;
