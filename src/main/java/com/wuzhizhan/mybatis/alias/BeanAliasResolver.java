@@ -57,7 +57,8 @@
 //                 SpringBeanPointer pointer = (SpringBeanPointer) domBean;
 //                 PsiClass beanClass = pointer.getBeanClass();
 //                 if (beanClass != null && beanClass.equals(sqlSessionFactoryClazz)) {
-//                     SpringPropertyDefinition basePackages = SpringPropertyUtils.findPropertyByName(pointer.getSpringBean(), MAPPER_ALIAS_PROPERTY);
+//                     SpringPropertyDefinition basePackages = SpringPropertyUtils.findPropertyByName(pointer
+//                     .getSpringBean(), MAPPER_ALIAS_PROPERTY);
 //                     if (basePackages != null) {
 //                         final String value = basePackages.getValueElement().getStringValue();
 //                         if (value != null) {

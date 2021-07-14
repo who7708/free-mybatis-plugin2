@@ -4,7 +4,12 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiAnnotation;
+import com.intellij.psi.PsiAnnotationMemberValue;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.wuzhizhan.mybatis.annotation.Annotation;
 import com.wuzhizhan.mybatis.dom.model.Mapper;
@@ -23,19 +28,29 @@ public class InjectionLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
     @Override
     protected void collectNavigationMarkers(PsiElement element, Collection<? super RelatedItemLineMarkerInfo> result) {
-        if (!(element instanceof PsiField)) return;
+        if (!(element instanceof PsiField)) {
+            return;
+        }
         PsiField field = (PsiField) element;
-        if (!isTargetField(field)) return;
+        if (!isTargetField(field)) {
+            return;
+        }
 
         PsiType type = field.getType();
-        if (!(type instanceof PsiClassReferenceType)) return;
+        if (!(type instanceof PsiClassReferenceType)) {
+            return;
+        }
 
         Optional<PsiClass> clazz = JavaUtils.findClazz(element.getProject(), type.getCanonicalText());
-        if (!clazz.isPresent()) return;
+        if (!clazz.isPresent()) {
+            return;
+        }
 
         PsiClass psiClass = clazz.get();
         Optional<Mapper> mapper = MapperUtils.findFirstMapper(element.getProject(), psiClass);
-        if (!mapper.isPresent()) return;
+        if (!mapper.isPresent()) {
+            return;
+        }
 
         NavigationGutterIconBuilder<PsiElement> builder =
                 NavigationGutterIconBuilder.create(Icons.SPRING_INJECTION_ICON)

@@ -22,7 +22,8 @@ public abstract class AliasResolver {
     }
 
     @NotNull
-    protected Optional<AliasDesc> addAliasDesc(@NotNull Set<AliasDesc> descs, @Nullable PsiClass clazz, @Nullable String alias) {
+    protected Optional<AliasDesc> addAliasDesc(@NotNull Set<AliasDesc> descs, @Nullable PsiClass clazz,
+                                               @Nullable String alias) {
         if (null == alias || !JavaUtils.isModelClazz(clazz)) {
             return Optional.empty();
         }

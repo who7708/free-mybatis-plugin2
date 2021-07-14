@@ -7,19 +7,29 @@ import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.ide.fileTemplates.FileTemplateUtil;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiMethod;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.util.Processor;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomUtil;
-import com.wuzhizhan.mybatis.dom.model.*;
+import com.wuzhizhan.mybatis.dom.model.Configuration;
+import com.wuzhizhan.mybatis.dom.model.IdDomElement;
+import com.wuzhizhan.mybatis.dom.model.Mapper;
+import com.wuzhizhan.mybatis.dom.model.TypeAlias;
+import com.wuzhizhan.mybatis.dom.model.TypeAliases;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.*;
-
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 
 /**
  * @author yanglin
@@ -85,13 +95,14 @@ public final class MapperUtils {
 
     @NotNull
     public static Collection<Mapper> findMappers(@NotNull Project project, @NotNull PsiClass clazz) {
-        return JavaUtils.isElementWithinInterface(clazz) ? findMappers(project, clazz.getQualifiedName()) : Collections.<Mapper>emptyList();
+        return JavaUtils.isElementWithinInterface(clazz) ? findMappers(project, clazz.getQualifiedName()) :
+                Collections.emptyList();
     }
 
     @NotNull
     public static Collection<Mapper> findMappers(@NotNull Project project, @NotNull PsiMethod method) {
         PsiClass clazz = method.getContainingClass();
-        return null == clazz ? Collections.<Mapper>emptyList() : findMappers(project, clazz);
+        return null == clazz ? Collections.emptyList() : findMappers(project, clazz);
     }
 
     @NotNull

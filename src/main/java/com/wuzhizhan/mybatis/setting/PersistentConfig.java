@@ -1,6 +1,5 @@
 package com.wuzhizhan.mybatis.setting;
 
-
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -12,7 +11,6 @@ import com.wuzhizhan.mybatis.model.User;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
 
 /**
  * 配置持久化
@@ -38,7 +36,6 @@ public class PersistentConfig implements PersistentStateComponent<PersistentConf
     public void loadState(PersistentConfig persistentConfig) {
         XmlSerializerUtil.copyBean(persistentConfig, this);
     }
-
 
     public Map<String, Config> getInitConfig() {
         return initConfig;

@@ -4,7 +4,11 @@ import com.intellij.psi.ElementManipulators;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.xml.XmlAttributeValue;
-import com.intellij.util.xml.*;
+import com.intellij.util.xml.ConvertContext;
+import com.intellij.util.xml.CustomReferenceConverter;
+import com.intellij.util.xml.DomElement;
+import com.intellij.util.xml.GenericAttributeValue;
+import com.intellij.util.xml.GenericDomValue;
 import com.wuzhizhan.mybatis.reference.ResultPropertyReferenceSet;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +21,8 @@ public class PropertyConverter extends ConverterAdaptor<XmlAttributeValue> imple
 
     @NotNull
     @Override
-    public PsiReference[] createReferences(GenericDomValue<XmlAttributeValue> value, PsiElement element, ConvertContext context) {
+    public PsiReference[] createReferences(GenericDomValue<XmlAttributeValue> value, PsiElement element,
+                                           ConvertContext context) {
         final String s = value.getStringValue();
         if (s == null) {
             return PsiReference.EMPTY_ARRAY;
@@ -29,7 +34,8 @@ public class PropertyConverter extends ConverterAdaptor<XmlAttributeValue> imple
     @Override
     public XmlAttributeValue fromString(@Nullable @NonNls String s, ConvertContext context) {
         DomElement ctxElement = context.getInvocationElement();
-        return ctxElement instanceof GenericAttributeValue ? ((GenericAttributeValue) ctxElement).getXmlAttributeValue() : null;
+        return ctxElement instanceof GenericAttributeValue ?
+                ((GenericAttributeValue) ctxElement).getXmlAttributeValue() : null;
     }
 
 }

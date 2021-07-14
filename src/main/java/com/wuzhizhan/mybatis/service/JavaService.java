@@ -2,7 +2,16 @@ package com.wuzhizhan.mybatis.service;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementFactory;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiImportList;
+import com.intellij.psi.PsiImportStatement;
+import com.intellij.psi.PsiJavaFile;
+import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.util.CommonProcessors;
 import com.intellij.util.Processor;
@@ -21,11 +30,11 @@ import java.util.Optional;
  */
 public class JavaService {
 
-    private Project project;
+    private final Project project;
 
-    private JavaPsiFacade javaPsiFacade;
+    private final JavaPsiFacade javaPsiFacade;
 
-    private EditorService editorService;
+    private final EditorService editorService;
 
     public JavaService(Project project) {
         this.project = project;
@@ -42,11 +51,13 @@ public class JavaService {
             return Optional.empty();
         }
         PsiType type = ((PsiField) field).getType();
-        return type instanceof PsiClassReferenceType ? Optional.ofNullable(((PsiClassReferenceType) type).resolve()) : Optional.empty();
+        return type instanceof PsiClassReferenceType ? Optional.ofNullable(((PsiClassReferenceType) type).resolve())
+                : Optional.empty();
     }
 
     public Optional<DomElement> findStatement(@Nullable PsiMethod method) {
-        CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<DomElement>();
+        CommonProcessors.FindFirstProcessor<DomElement> processor =
+                new CommonProcessors.FindFirstProcessor<DomElement>();
         process(method, processor);
         return processor.isFound() ? Optional.ofNullable(processor.getFoundValue()) : Optional.empty();
     }
@@ -54,7 +65,9 @@ public class JavaService {
     @SuppressWarnings("unchecked")
     public void process(@NotNull PsiMethod psiMethod, @NotNull Processor<IdDomElement> processor) {
         PsiClass psiClass = psiMethod.getContainingClass();
-        if (null == psiClass) return;
+        if (null == psiClass) {
+            return;
+        }
         String id = psiClass.getQualifiedName() + "." + psiMethod.getName();
         for (Mapper mapper : MapperUtils.findMappers(psiMethod.getProject())) {
             for (IdDomElement idDomElement : mapper.getDaoElements()) {

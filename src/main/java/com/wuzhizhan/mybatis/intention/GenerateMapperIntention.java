@@ -11,7 +11,11 @@ import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
 import com.wuzhizhan.mybatis.service.EditorService;
@@ -24,7 +28,12 @@ import com.wuzhizhan.mybatis.util.MapperUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author yanglin
@@ -143,7 +152,8 @@ public class GenerateMapperIntention extends GenericIntention {
         try {
             Properties properties = new Properties();
             properties.setProperty("NAMESPACE", clazz.getQualifiedName());
-            PsiElement psiFile = MapperUtils.createMapperFromFileTemplate(MybatisFileTemplateDescriptorFactory.MYBATIS_MAPPER_XML_TEMPLATE,
+            PsiElement psiFile =
+                    MapperUtils.createMapperFromFileTemplate(MybatisFileTemplateDescriptorFactory.MYBATIS_MAPPER_XML_TEMPLATE,
                     clazz.getName(), directory, properties);
             EditorService.getInstance(clazz.getProject()).scrollTo(psiFile, 0);
         } catch (Exception e) {

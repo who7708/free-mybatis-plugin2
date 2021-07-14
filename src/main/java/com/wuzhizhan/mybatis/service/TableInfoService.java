@@ -31,12 +31,14 @@
 // //            String typeName = column.getDataType().getSpecification();
 // //            for (TypeMapper typeMapper : typeMapperList) {
 // //                // 不区分大小写查找类型
-// //                if (Pattern.compile(typeMapper.getColumnType(), Pattern.CASE_INSENSITIVE).matcher(typeName).matches()) {
+// //                if (Pattern.compile(typeMapper.getColumnType(), Pattern.CASE_INSENSITIVE).matcher(typeName)
+// .matches()) {
 // //                    continue FLAG;
 // //                }
 // //            }
 // //            // 没找到类型，引导用户去添加类型
-// //            if (MessageDialogBuilder.yesNo(MsgValue.TITLE_INFO, String.format("数据库类型%s，没有找到映射关系，是否去添加？", typeName)).isYes()) {
+// //            if (MessageDialogBuilder.yesNo(MsgValue.TITLE_INFO, String.format("数据库类型%s，没有找到映射关系，是否去添加？",
+// typeName)).isYes()) {
 // //                ShowSettingsUtil.getInstance().showSettingsDialog(project, "Type Mapper");
 // //                return false;
 // //            }

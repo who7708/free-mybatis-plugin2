@@ -26,7 +26,8 @@
 //         }
 //         for (PsiElement psiElement : psiElements) {
 //             if (!(psiElement instanceof DbTable)) {
-//                 Messages.showMessageDialog("Please select one or more tables", "Notice", Messages.getInformationIcon());
+//                 Messages.showMessageDialog("Please select one or more tables", "Notice", Messages
+//                 .getInformationIcon());
 //                 return;
 //             }
 //         }

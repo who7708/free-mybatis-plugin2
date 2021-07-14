@@ -11,22 +11,25 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-import static com.wuzhizhan.mybatis.generate.StatementGenerator.*;
+import static com.wuzhizhan.mybatis.generate.StatementGenerator.DELETE_GENERATOR;
+import static com.wuzhizhan.mybatis.generate.StatementGenerator.INSERT_GENERATOR;
+import static com.wuzhizhan.mybatis.generate.StatementGenerator.SELECT_GENERATOR;
+import static com.wuzhizhan.mybatis.generate.StatementGenerator.UPDATE_GENERATOR;
 
 /**
  * @author yanglin
  */
 public class MybatisConfigurable implements SearchableConfigurable {
 
-    private MybatisSetting mybatisSetting;
+    private final MybatisSetting mybatisSetting;
 
     private MybatisSettingForm mybatisSettingForm;
 
-    private String separator = ";";
+    private final String separator = ";";
 
-    private Splitter splitter = Splitter.on(separator).omitEmptyStrings().trimResults();
+    private final Splitter splitter = Splitter.on(separator).omitEmptyStrings().trimResults();
 
-    private Joiner joiner = Joiner.on(separator);
+    private final Joiner joiner = Joiner.on(separator);
 
     public MybatisConfigurable() {
         mybatisSetting = MybatisSetting.getInstance();

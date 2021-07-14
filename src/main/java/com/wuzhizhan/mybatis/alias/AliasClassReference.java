@@ -15,7 +15,7 @@ import java.util.Collection;
  */
 public class AliasClassReference extends PsiReferenceBase<XmlAttributeValue> {
 
-    private Function<AliasDesc, String> function = new Function<AliasDesc, String>() {
+    private final Function<AliasDesc, String> function = new Function<AliasDesc, String>() {
         @Override
         public String apply(AliasDesc input) {
             return input.getAlias();
@@ -30,7 +30,8 @@ public class AliasClassReference extends PsiReferenceBase<XmlAttributeValue> {
     @Override
     public PsiElement resolve() {
         XmlAttributeValue attributeValue = getElement();
-        return AliasFacade.getInstance(attributeValue.getProject()).findPsiClass(attributeValue, attributeValue.getValue()).orElse(null);
+        return AliasFacade.getInstance(attributeValue.getProject()).findPsiClass(attributeValue,
+                attributeValue.getValue()).orElse(null);
     }
 
     @NotNull

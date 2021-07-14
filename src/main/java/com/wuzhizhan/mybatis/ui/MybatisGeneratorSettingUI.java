@@ -22,40 +22,38 @@ import java.util.Map;
 public class MybatisGeneratorSettingUI extends JDialog {
     public JPanel contentPanel = new JBPanel<>(new GridLayout(1, 1));
 
+    private final JBTextField modelPackageField = new JBTextField(12);
+    private final JBTextField daoPackageField = new JBTextField(12);
+    private final JBTextField xmlPackageField = new JBTextField(12);
+    private final JTextField daoPostfixField = new JTextField(10);
 
-    private JBTextField modelPackageField = new JBTextField(12);
-    private JBTextField daoPackageField = new JBTextField(12);
-    private JBTextField xmlPackageField = new JBTextField(12);
-    private JTextField daoPostfixField = new JTextField(10);
+    private final TextFieldWithBrowseButton projectFolderBtn = new TextFieldWithBrowseButton();
+    private final JTextField modelMvnField = new JBTextField(15);
+    private final JTextField daoMvnField = new JBTextField(15);
+    private final JTextField xmlMvnField = new JBTextField(15);
+    private final JButton setProjectBtn = new JButton("Set-Project-Path");
 
-    private TextFieldWithBrowseButton projectFolderBtn = new TextFieldWithBrowseButton();
-    private JTextField modelMvnField = new JBTextField(15);
-    private JTextField daoMvnField = new JBTextField(15);
-    private JTextField xmlMvnField = new JBTextField(15);
-    private JButton setProjectBtn = new JButton("Set-Project-Path");
-
-    private JCheckBox offsetLimitBox = new JCheckBox("Page(分页)");
-    private JCheckBox commentBox = new JCheckBox("comment(实体注释)");
-    private JCheckBox overrideXMLBox = new JCheckBox("Overwrite-Xml");
-    private JCheckBox overrideJavaBox = new JCheckBox("Overwrite-Java");
-    private JCheckBox needToStringHashcodeEqualsBox = new JCheckBox("toString/hashCode/equals");
-    private JCheckBox useSchemaPrefixBox = new JCheckBox("Use-Schema(使用Schema前缀)");
-    private JCheckBox needForUpdateBox = new JCheckBox("Add-ForUpdate(select增加ForUpdate)");
-    private JCheckBox annotationDAOBox = new JCheckBox("Repository-Annotation(Repository注解)");
-    private JCheckBox useDAOExtendStyleBox = new JCheckBox("Parent-Interface(公共父接口)");
-    private JCheckBox jsr310SupportBox = new JCheckBox("JSR310: Date and Time API");
-    private JCheckBox annotationBox = new JCheckBox("JPA-Annotation(JPA注解)");
-    private JCheckBox useActualColumnNamesBox = new JCheckBox("Actual-Column(实际的列名)");
-    private JCheckBox useTableNameAliasBox = new JCheckBox("Use-Alias(启用别名查询)");
-    private JCheckBox useExampleBox = new JCheckBox("Use-Example");
-    private JCheckBox useLombokBox = new JCheckBox("Use-Lombox");
+    private final JCheckBox offsetLimitBox = new JCheckBox("Page(分页)");
+    private final JCheckBox commentBox = new JCheckBox("comment(实体注释)");
+    private final JCheckBox overrideXMLBox = new JCheckBox("Overwrite-Xml");
+    private final JCheckBox overrideJavaBox = new JCheckBox("Overwrite-Java");
+    private final JCheckBox needToStringHashcodeEqualsBox = new JCheckBox("toString/hashCode/equals");
+    private final JCheckBox useSchemaPrefixBox = new JCheckBox("Use-Schema(使用Schema前缀)");
+    private final JCheckBox needForUpdateBox = new JCheckBox("Add-ForUpdate(select增加ForUpdate)");
+    private final JCheckBox annotationDAOBox = new JCheckBox("Repository-Annotation(Repository注解)");
+    private final JCheckBox useDAOExtendStyleBox = new JCheckBox("Parent-Interface(公共父接口)");
+    private final JCheckBox jsr310SupportBox = new JCheckBox("JSR310: Date and Time API");
+    private final JCheckBox annotationBox = new JCheckBox("JPA-Annotation(JPA注解)");
+    private final JCheckBox useActualColumnNamesBox = new JCheckBox("Actual-Column(实际的列名)");
+    private final JCheckBox useTableNameAliasBox = new JCheckBox("Use-Alias(启用别名查询)");
+    private final JCheckBox useExampleBox = new JCheckBox("Use-Example");
+    private final JCheckBox useLombokBox = new JCheckBox("Use-Lombox");
 
     private PersistentConfig config;
 
     public MybatisGeneratorSettingUI() {
         setContentPane(contentPanel);
     }
-
 
     public void createUI(Project project) {
         String projectFolder = project.getBasePath();
@@ -80,7 +78,6 @@ public class MybatisGeneratorSettingUI extends JDialog {
         });
         projectFolderPanel.add(projectFolderBtn);
         projectFolderPanel.add(setProjectBtn);
-
 
         /**
          * mode panel
@@ -134,7 +131,6 @@ public class MybatisGeneratorSettingUI extends JDialog {
         daoMvnField.setText("src/main/java");
         daoPanel.add(daoMvnField);
 
-
         /**
          * xml mapper panel
          */
@@ -147,7 +143,6 @@ public class MybatisGeneratorSettingUI extends JDialog {
         xmlMapperPanel.add(new JLabel("path:"));
         xmlMvnField.setText("src/main/resources");
         xmlMapperPanel.add(xmlMvnField);
-
 
         /**
          * options panel
@@ -222,19 +217,19 @@ public class MybatisGeneratorSettingUI extends JDialog {
 
     public boolean isModified() {
         boolean modified = true;
-//        modified |= !this.id.getText().equals(config.getId());
-//        modified |= !this.entity.getText().equals(config.getEntity());
-//        modified |= !this.project_directory.getText().equals(config.getProject_directory());
-//        modified |= !this.dao_name.getText().equals(config.getDao_name());
-//
-//        modified |= !this.entity_package.getText().equals(config.getEntity_package());
-//        modified |= !this.entity_directory.getText().equals(config.getEntity_directory());
-//        modified |= !this.mapper_package.getText().equals(config.getMapper_package());
-//        modified |= !this.mapper_directory.getText().equals(config.getMapper_directory());
-//        modified |= !this.xml_package.getText().equals(config.getXml_package());
-//        modified |= !this.xml_directory.getText().equals(config.getXml_directory());
-//        modified |= !this.password.getPassword().equals(config.getPassword());
-//        modified |= !this.username.getText().equals(config.getUsername());
+        //        modified |= !this.id.getText().equals(config.getId());
+        //        modified |= !this.entity.getText().equals(config.getEntity());
+        //        modified |= !this.project_directory.getText().equals(config.getProject_directory());
+        //        modified |= !this.dao_name.getText().equals(config.getDao_name());
+        //
+        //        modified |= !this.entity_package.getText().equals(config.getEntity_package());
+        //        modified |= !this.entity_directory.getText().equals(config.getEntity_directory());
+        //        modified |= !this.mapper_package.getText().equals(config.getMapper_package());
+        //        modified |= !this.mapper_directory.getText().equals(config.getMapper_directory());
+        //        modified |= !this.xml_package.getText().equals(config.getXml_package());
+        //        modified |= !this.xml_directory.getText().equals(config.getXml_directory());
+        //        modified |= !this.password.getPassword().equals(config.getPassword());
+        //        modified |= !this.username.getText().equals(config.getUsername());
         return modified;
     }
 
@@ -266,7 +261,6 @@ public class MybatisGeneratorSettingUI extends JDialog {
         initConfig.put(config.getName(), config);
         this.config.setInitConfig(initConfig);
 
-
     }
 
     public void reset() {
@@ -277,6 +271,5 @@ public class MybatisGeneratorSettingUI extends JDialog {
     public JPanel getContentPane() {
         return contentPanel;
     }
-
 
 }

@@ -5,6 +5,6 @@ package com.wuzhizhan.mybatis.ui;
  */
 public interface ExecutableListener {
 
-    public boolean isWriteAction();
+    boolean isWriteAction();
 
 }

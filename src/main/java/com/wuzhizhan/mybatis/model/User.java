@@ -9,7 +9,6 @@ public class User {
     //用户名
     private String username;
 
-
     public User() {
     }
 
@@ -18,7 +17,6 @@ public class User {
 
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -26,6 +24,5 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
 }

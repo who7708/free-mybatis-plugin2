@@ -1,14 +1,22 @@
 package com.wuzhizhan.mybatis.generate;
 
 import com.google.common.base.Function;
-import com.google.common.collect.*;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.PopupStep;
 import com.intellij.openapi.ui.popup.util.BaseListPopupStep;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiPrimitiveType;
+import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.CommonProcessors.CollectProcessor;
@@ -36,19 +44,23 @@ public abstract class StatementGenerator {
 
     public static final StatementGenerator UPDATE_GENERATOR = new UpdateGenerator("update", "modify", "set");
 
-    public static final StatementGenerator SELECT_GENERATOR = new SelectGenerator("select", "get", "look", "find", "list", "search", "count", "query");
+    public static final StatementGenerator SELECT_GENERATOR = new SelectGenerator("select", "get", "look", "find",
+            "list", "search", "count", "query");
 
     public static final StatementGenerator DELETE_GENERATOR = new DeleteGenerator("del", "cancel");
 
     public static final StatementGenerator INSERT_GENERATOR = new InsertGenerator("insert", "add", "new");
 
-    public static final Set<StatementGenerator> ALL = ImmutableSet.of(UPDATE_GENERATOR, SELECT_GENERATOR, DELETE_GENERATOR, INSERT_GENERATOR);
+    public static final Set<StatementGenerator> ALL = ImmutableSet.of(UPDATE_GENERATOR, SELECT_GENERATOR,
+            DELETE_GENERATOR, INSERT_GENERATOR);
 
     private static final Function<Mapper, String> FUN = new Function<Mapper, String>() {
         @Override
         public String apply(Mapper mapper) {
             VirtualFile vf = mapper.getXmlTag().getContainingFile().getVirtualFile();
-            if (null == vf) return "";
+            if (null == vf) {
+                return "";
+            }
             return vf.getCanonicalPath();
         }
     };
@@ -82,7 +94,9 @@ public abstract class StatementGenerator {
     }
 
     public static void applyGenerate(@Nullable final PsiMethod method) {
-        if (null == method) return;
+        if (null == method) {
+            return;
+        }
         final Project project = method.getProject();
         final Object[] generators = getGenerators(method);
         if (1 == generators.length) {
@@ -117,7 +131,8 @@ public abstract class StatementGenerator {
                 result.add(generator);
             }
         }
-        return CollectionUtils.isNotEmpty(result) ? result.toArray(new StatementGenerator[result.size()]) : ALL.toArray(new StatementGenerator[ALL.size()]);
+        return CollectionUtils.isNotEmpty(result) ? result.toArray(new StatementGenerator[result.size()]) :
+                ALL.toArray(new StatementGenerator[ALL.size()]);
     }
 
     private Set<String> patterns;
@@ -128,7 +143,9 @@ public abstract class StatementGenerator {
 
     public void execute(@NotNull final PsiMethod method) {
         PsiClass psiClass = method.getContainingClass();
-        if (null == psiClass) return;
+        if (null == psiClass) {
+            return;
+        }
         CollectProcessor processor = new CollectProcessor();
         JavaService.getInstance(method.getProject()).process(psiClass, processor);
         final List<Mapper> mappers = Lists.newArrayList(processor.getResults());
@@ -136,7 +153,8 @@ public abstract class StatementGenerator {
             setupTag(method, (Mapper) Iterables.getOnlyElement(mappers, (Object) null));
         } else if (mappers.size() > 1) {
             Collection<String> paths = Collections2.transform(mappers, FUN);
-            UiComponentFacade.getInstance(method.getProject()).showListPopup("Choose target mapper xml to generate", new ListSelectionListener() {
+            UiComponentFacade.getInstance(method.getProject()).showListPopup("Choose target mapper xml to generate",
+                    new ListSelectionListener() {
                 @Override
                 public void selected(int index) {
                     setupTag(method, mappers.get(index));

@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public abstract class PackageAliasResolver extends AliasResolver {
 
-    private JavaPsiFacade javaPsiFacade;
+    private final JavaPsiFacade javaPsiFacade;
 
     public PackageAliasResolver(Project project) {
         super(project);

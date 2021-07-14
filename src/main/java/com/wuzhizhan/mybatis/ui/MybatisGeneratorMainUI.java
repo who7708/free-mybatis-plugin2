@@ -518,7 +518,8 @@
 //                 generator_config.setComment(commentBox.getSelectedObjects() != null);
 //                 generator_config.setOverrideXML(overrideXMLBox.getSelectedObjects() != null);
 //                 generator_config.setOverrideJava(overrideJavaBox.getSelectedObjects() != null);
-//                 generator_config.setNeedToStringHashcodeEquals(needToStringHashcodeEqualsBox.getSelectedObjects() != null);
+//                 generator_config.setNeedToStringHashcodeEquals(needToStringHashcodeEqualsBox.getSelectedObjects()
+//                 != null);
 //                 generator_config.setUseSchemaPrefix(useSchemaPrefixBox.getSelectedObjects() != null);
 //                 generator_config.setNeedForUpdate(needForUpdateBox.getSelectedObjects() != null);
 //                 generator_config.setAnnotationDAO(annotationDAOBox.getSelectedObjects() != null);
@@ -562,7 +563,8 @@
 //                     generator_config.setComment(commentBox.getSelectedObjects() != null);
 //                     generator_config.setOverrideXML(overrideXMLBox.getSelectedObjects() != null);
 //                     generator_config.setOverrideJava(overrideJavaBox.getSelectedObjects() != null);
-//                     generator_config.setNeedToStringHashcodeEquals(needToStringHashcodeEqualsBox.getSelectedObjects() != null);
+//                     generator_config.setNeedToStringHashcodeEquals(needToStringHashcodeEqualsBox
+//                     .getSelectedObjects() != null);
 //                     generator_config.setUseSchemaPrefix(useSchemaPrefixBox.getSelectedObjects() != null);
 //                     generator_config.setNeedForUpdate(needForUpdateBox.getSelectedObjects() != null);
 //                     generator_config.setAnnotationDAO(annotationDAOBox.getSelectedObjects() != null);

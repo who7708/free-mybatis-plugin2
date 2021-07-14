@@ -121,7 +121,6 @@ public class Config {
      */
     private boolean useExample;
 
-
     private String encoding;
     private String connectorJarPath;
     private boolean useLombokPlugin;
@@ -377,7 +376,6 @@ public class Config {
     public void setDaoPostfix(String daoPostfix) {
         this.daoPostfix = daoPostfix;
     }
-
 
     public boolean isOverrideJava() {
         return overrideJava;

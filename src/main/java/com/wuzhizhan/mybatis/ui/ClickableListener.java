@@ -5,6 +5,6 @@ package com.wuzhizhan.mybatis.ui;
  */
 public interface ClickableListener extends ExecutableListener {
 
-    public void clicked();
+    void clicked();
 
 }

@@ -1,7 +1,20 @@
 package com.wuzhizhan.mybatis.util;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiAnnotation;
+import com.intellij.psi.PsiAnnotationMemberValue;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiImportList;
+import com.intellij.psi.PsiImportStatement;
+import com.intellij.psi.PsiJavaFile;
+import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiModifier;
+import com.intellij.psi.PsiModifierList;
+import com.intellij.psi.PsiModifierListOwner;
+import com.intellij.psi.PsiParameter;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PropertyUtil;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -68,11 +81,13 @@ public final class JavaUtils {
 
     @NotNull
     public static Optional<PsiClass> findClazz(@NotNull Project project, @NotNull String clazzName) {
-        return Optional.ofNullable(JavaPsiFacade.getInstance(project).findClass(clazzName, GlobalSearchScope.allScope(project)));
+        return Optional.ofNullable(JavaPsiFacade.getInstance(project).findClass(clazzName,
+                GlobalSearchScope.allScope(project)));
     }
 
     @NotNull
-    public static Optional<PsiMethod> findMethod(@NotNull Project project, @Nullable String clazzName, @Nullable String methodName) {
+    public static Optional<PsiMethod> findMethod(@NotNull Project project, @Nullable String clazzName,
+                                                 @Nullable String methodName) {
         if (StringUtils.isBlank(clazzName) && StringUtils.isBlank(methodName)) {
             return Optional.empty();
         }
@@ -95,9 +110,11 @@ public final class JavaUtils {
     }
 
     @NotNull
-    public static Optional<PsiAnnotation> getPsiAnnotation(@NotNull PsiModifierListOwner target, @NotNull Annotation annotation) {
+    public static Optional<PsiAnnotation> getPsiAnnotation(@NotNull PsiModifierListOwner target,
+                                                           @NotNull Annotation annotation) {
         PsiModifierList modifierList = target.getModifierList();
-        return null == modifierList ? Optional.empty() : Optional.ofNullable(modifierList.findAnnotation(annotation.getQualifiedName()));
+        return null == modifierList ? Optional.empty() :
+                Optional.ofNullable(modifierList.findAnnotation(annotation.getQualifiedName()));
     }
 
     @NotNull
@@ -108,20 +125,25 @@ public final class JavaUtils {
             return Optional.empty();
         }
         Optional<PsiAnnotation> psiAnnotation = getPsiAnnotation(target, annotation);
-        return psiAnnotation.isPresent() ? Optional.ofNullable(psiAnnotation.get().findAttributeValue(attrName)) : Optional.empty();
+        return psiAnnotation.isPresent() ? Optional.ofNullable(psiAnnotation.get().findAttributeValue(attrName)) :
+                Optional.empty();
     }
 
     @NotNull
-    public static Optional<PsiAnnotationMemberValue> getAnnotationValue(@NotNull PsiModifierListOwner target, @NotNull Annotation annotation) {
+    public static Optional<PsiAnnotationMemberValue> getAnnotationValue(@NotNull PsiModifierListOwner target,
+                                                                        @NotNull Annotation annotation) {
         return getAnnotationAttributeValue(target, annotation, "value");
     }
 
-    public static Optional<String> getAnnotationValueText(@NotNull PsiModifierListOwner target, @NotNull Annotation annotation) {
+    public static Optional<String> getAnnotationValueText(@NotNull PsiModifierListOwner target,
+                                                          @NotNull Annotation annotation) {
         Optional<PsiAnnotationMemberValue> annotationValue = getAnnotationValue(target, annotation);
-        return annotationValue.isPresent() ? Optional.of(annotationValue.get().getText().replaceAll("\"", "")) : Optional.empty();
+        return annotationValue.isPresent() ? Optional.of(annotationValue.get().getText().replaceAll("\"", "")) :
+                Optional.empty();
     }
 
-    public static boolean isAnyAnnotationPresent(@NotNull PsiModifierListOwner target, @NotNull Set<Annotation> annotations) {
+    public static boolean isAnyAnnotationPresent(@NotNull PsiModifierListOwner target,
+                                                 @NotNull Set<Annotation> annotations) {
         for (Annotation annotation : annotations) {
             if (isAnnotationPresent(target, annotation)) {
                 return true;

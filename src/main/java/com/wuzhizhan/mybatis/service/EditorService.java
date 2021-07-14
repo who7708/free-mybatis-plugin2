@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EditorService {
 
-    private Project project;
+    private final Project project;
 
-    private FileEditorManager fileEditorManager;
+    private final FileEditorManager fileEditorManager;
 
     private CodeFormatterFacade codeFormatterFacade;
 
@@ -34,7 +34,8 @@ public class EditorService {
     }
 
     public void format(@NotNull PsiFile file, @NotNull PsiElement element) {
-        this.codeFormatterFacade = new CodeFormatterFacade(CodeStyleSettingsManager.getSettings(element.getProject()), element.getLanguage());
+        this.codeFormatterFacade = new CodeFormatterFacade(CodeStyleSettingsManager.getSettings(element.getProject())
+                , element.getLanguage());
         codeFormatterFacade.processText(file, new FormatTextRanges(element.getTextRange(), true), true);
     }
 

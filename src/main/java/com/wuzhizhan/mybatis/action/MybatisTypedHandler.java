@@ -30,7 +30,7 @@ public class MybatisTypedHandler extends TypedHandlerDelegate {
         boolean parameterCase = c == '{' &&
                 index >= 0 &&
                 editor.getDocument().getText().charAt(index) == '#' &&
-//                file instanceof SqlFile &&
+                //                file instanceof SqlFile &&
                 DomUtils.isMybatisFile(topLevelFile);
         if (parameterCase) {
             autoPopupParameter(project, editor);
@@ -42,6 +42,5 @@ public class MybatisTypedHandler extends TypedHandlerDelegate {
     private static void autoPopupParameter(final Project project, final Editor editor) {
         AutoPopupController.getInstance(project).autoPopupMemberLookup(editor, psiFile -> true);
     }
-
 
 }

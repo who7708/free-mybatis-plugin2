@@ -142,8 +142,10 @@
 //                 Set<String> fullyqualifiedTables = new HashSet<>();
 //                 Set<String> contexts = new HashSet<>();
 //                 try {
-//                     IntellijMyBatisGenerator intellijMyBatisGenerator = new IntellijMyBatisGenerator(configuration, shellCallback, warnings);
-//                     intellijMyBatisGenerator.generate(new GeneratorCallback(), contexts, fullyqualifiedTables, intellijTableInfo);
+//                     IntellijMyBatisGenerator intellijMyBatisGenerator = new IntellijMyBatisGenerator
+//                     (configuration, shellCallback, warnings);
+//                     intellijMyBatisGenerator.generate(new GeneratorCallback(), contexts, fullyqualifiedTables,
+//                     intellijTableInfo);
 //                     if (!warnings.isEmpty()) {
 //                         result.addAll(warnings);
 //                     }

@@ -29,7 +29,9 @@ public abstract class SimpleLineMarkerProvider<F extends PsiElement, T> extends 
     @Nullable
     @Override
     public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement element) {
-        if (!isTheElement(element)) return null;
+        if (!isTheElement(element)) {
+            return null;
+        }
 
         Optional<T> processResult = apply((F) element);
         return processResult.isPresent() ? new LineMarkerInfo<F>(

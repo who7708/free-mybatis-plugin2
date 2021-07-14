@@ -11,7 +11,12 @@ import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.JavaClassReferenceProvider;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.xml.XmlAttributeValue;
-import com.intellij.util.xml.*;
+import com.intellij.util.xml.ConvertContext;
+import com.intellij.util.xml.CustomReferenceConverter;
+import com.intellij.util.xml.DomElement;
+import com.intellij.util.xml.DomUtil;
+import com.intellij.util.xml.GenericDomValue;
+import com.intellij.util.xml.PsiClassConverter;
 import com.wuzhizhan.mybatis.dom.model.IdDomElement;
 import com.wuzhizhan.mybatis.dom.model.Mapper;
 import com.wuzhizhan.mybatis.util.MapperUtils;
@@ -20,7 +25,11 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author yanglin
@@ -44,7 +53,8 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
     }
 
     @NotNull
-    private Optional<XmlAttributeValue> matchIdDomElement(Collection<? extends IdDomElement> idDomElements, String value, ConvertContext context) {
+    private Optional<XmlAttributeValue> matchIdDomElement(Collection<? extends IdDomElement> idDomElements,
+                                                          String value, ConvertContext context) {
         Mapper contextMapper = MapperUtils.getMapper(context.getInvocationElement());
         for (IdDomElement idDomElement : idDomElements) {
             if (MapperUtils.getIdSignature(idDomElement).equals(value) ||
@@ -119,13 +129,14 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
 
     @NotNull
     @Override
-    public PsiReference[] createReferences(GenericDomValue<XmlAttributeValue> value, PsiElement element, ConvertContext context) {
+    public PsiReference[] createReferences(GenericDomValue<XmlAttributeValue> value, PsiElement element,
+                                           ConvertContext context) {
         return PsiClassConverter.createJavaClassReferenceProvider(value, null, new ValueReferenceProvider(context)).getReferencesByElement(element);
     }
 
     private class ValueReferenceProvider extends JavaClassReferenceProvider {
 
-        private ConvertContext context;
+        private final ConvertContext context;
 
         private ValueReferenceProvider(ConvertContext context) {
             this.context = context;
@@ -155,14 +166,15 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
         private TextRange getTextRange(PsiElement element) {
             String text = element.getText();
             int index = text.lastIndexOf(MybatisConstants.DOT_SEPARATOR);
-            return -1 == index ? ElementManipulators.getValueTextRange(element) : TextRange.create(text.substring(0, index).length() + 1, text.length() - 1);
+            return -1 == index ? ElementManipulators.getValueTextRange(element) : TextRange.create(text.substring(0,
+                    index).length() + 1, text.length() - 1);
         }
     }
 
     private class ValueReference extends PsiReferenceBase<PsiElement> {
 
-        private ConvertContext context;
-        private String text;
+        private final ConvertContext context;
+        private final String text;
 
         public ValueReference(@NotNull PsiElement element, TextRange rng, ConvertContext context, String text) {
             super(element, rng, false);
@@ -179,7 +191,8 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
         @NotNull
         @Override
         public Object[] getVariants() {
-            Set<String> res = getElement().getText().contains(MybatisConstants.DOT_SEPARATOR) ? setupContextIdSignature() : setupGlobalIdSignature();
+            Set<String> res = getElement().getText().contains(MybatisConstants.DOT_SEPARATOR) ?
+                    setupContextIdSignature() : setupGlobalIdSignature();
             return res.toArray(new String[res.size()]);
         }
 

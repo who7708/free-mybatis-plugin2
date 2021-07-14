@@ -16,7 +16,6 @@ public class MybatisGeneratorConfigurable implements SearchableConfigurable {
     @SuppressWarnings("FieldCanBeLocal")
     private final Project project;
 
-
     public MybatisGeneratorConfigurable(@NotNull Project project) {
         this.project = project;
     }

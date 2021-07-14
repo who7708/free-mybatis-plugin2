@@ -32,7 +32,8 @@ public class Annotation implements Cloneable {
 
     public static final Annotation ALIAS = new Annotation("@Alias", "org.apache.ibatis.type.Alias");
 
-    public static final Annotation AUTOWIRED = new Annotation("@Autowired", "org.springframework.beans.factory.annotation.Autowired");
+    public static final Annotation AUTOWIRED = new Annotation("@Autowired", "org.springframework.beans.factory" +
+            ".annotation.Autowired");
 
     public static final Annotation RESOURCE = new Annotation("@Resource", "javax.annotation.Resource");
 
@@ -49,7 +50,7 @@ public class Annotation implements Cloneable {
 
     public static class StringValue implements AnnotationValue {
 
-        private String value;
+        private final String value;
 
         public StringValue(@NotNull String value) {
             this.value = value;
@@ -113,7 +114,8 @@ public class Annotation implements Cloneable {
 
     @NotNull
     public Optional<PsiClass> toPsiClass(@NotNull Project project) {
-        return Optional.ofNullable(JavaPsiFacade.getInstance(project).findClass(getQualifiedName(), GlobalSearchScope.allScope(project)));
+        return Optional.ofNullable(JavaPsiFacade.getInstance(project).findClass(getQualifiedName(),
+                GlobalSearchScope.allScope(project)));
     }
 
     private Optional<String> getSingleValue() {
