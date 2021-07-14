@@ -24,36 +24,48 @@
     ]]></description>
 
     <idea-version since-build="145"/>
-    <depends>com.intellij.database</depends>
-    <depends>com.intellij.spring</depends>
-    <actions>
-        <action id="free-mabatis-generate-action" class="com.wuzhizhan.mybatis.action.MybatisGeneratorMainAction" text="Mybatis-Generator"
-                description="Mybatis generator idea plugin">
-            <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>
-        </action>
-    </actions>
+    <!--<depends>com.intellij.database</depends>-->
+    <!--<depends>com.intellij.spring</depends>-->
+    <!--<actions>-->
+    <!--    <action id="free-mabatis-generate-action" class="com.wuzhizhan.mybatis.action.MybatisGeneratorMainAction" text="Mybatis-Generator"-->
+    <!--            description="Mybatis generator idea plugin">-->
+    <!--        <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>-->
+    <!--    </action>-->
+    <!--</actions>-->
     <extensions defaultExtensionNs="com.intellij">
         <dom.fileDescription implementation="com.wuzhizhan.mybatis.dom.description.MapperDescription"/>
         <dom.fileDescription implementation="com.wuzhizhan.mybatis.dom.description.ConfigurationDescription"/>
+
         <definitionsSearch implementation="com.wuzhizhan.mybatis.definitionsearch.MapperDefinitionSearch"/>
+
         <projectService serviceImplementation="com.wuzhizhan.mybatis.service.JavaService"/>
         <projectService serviceImplementation="com.wuzhizhan.mybatis.service.AnnotationService"/>
         <projectService serviceImplementation="com.wuzhizhan.mybatis.service.EditorService"/>
         <projectService serviceImplementation="com.wuzhizhan.mybatis.alias.AliasFacade"/>
         <projectService serviceImplementation="com.wuzhizhan.mybatis.locator.MapperLocator"/>
-        <projectService serviceImplementation="com.wuzhizhan.mybatis.service.TableInfoService"/>
+
+        <!--<projectService serviceImplementation="com.wuzhizhan.mybatis.service.TableInfoService"/>-->
+
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.wuzhizhan.mybatis.provider.MapperLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="XML" implementationClass="com.wuzhizhan.mybatis.provider.StatementLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.wuzhizhan.mybatis.provider.InjectionLineMarkerProvider"/>
+
         <applicationConfigurable groupId="tools" instance="com.wuzhizhan.mybatis.setting.MybatisConfigurable"/>
+
         <completion.contributor language="JAVA" implementationClass="com.wuzhizhan.mybatis.contributor.JavaMenthodCompletionContributor"/>
+
         <applicationService serviceImplementation="com.wuzhizhan.mybatis.setting.MybatisSetting"/>
+
         <completion.contributor language="XML" implementationClass="com.wuzhizhan.mybatis.contributor.TestParamContributor"/>
         <completion.contributor language="SQL" implementationClass="com.wuzhizhan.mybatis.contributor.SqlParamCompletionContributor" order="first"/>
+
         <fileTemplateGroup implementation="com.wuzhizhan.mybatis.template.MybatisFileTemplateDescriptorFactory"/>
+
         <typedHandler implementation="com.wuzhizhan.mybatis.action.MybatisTypedHandler" id="mybatis" order="first"/>
-        <defaultLiveTemplates file="liveTemplates/sql.xml" hidden="false"/>
+
+        <!--<defaultLiveTemplates file="liveTemplates/sql.xml" hidden="false"/>-->
         <refactoring.elementListenerProvider implementation="com.wuzhizhan.mybatis.refactoring.MapperRefactoringProvider"/>
+
         <localInspection language="JAVA" shortName="MybatisMapperMethodInspection"
                          displayName="Mapper method inspection"
                          groupName="Mybatis" enabledByDefault="true" level="ERROR"
@@ -62,6 +74,7 @@
                          displayName="Mapper xml inspection"
                          groupName="Mybatis"
                          implementationClass="com.wuzhizhan.mybatis.inspection.MapperXmlInspection"/>
+
         <intentionAction>
             <className>com.wuzhizhan.mybatis.intention.GenerateParamAnnotationIntention</className>
         </intentionAction>
@@ -71,6 +84,7 @@
         <intentionAction order="first">
             <className>com.wuzhizhan.mybatis.intention.GenerateMapperIntention</className>
         </intentionAction>
+
         <projectService serviceImplementation="com.wuzhizhan.mybatis.setting.PersistentConfig"/>
         <projectConfigurable groupId="tools" displayName="Mybatis Generator Setting" id="free.mybatis.gene.id" instance="com.wuzhizhan.mybatis.setting.MybatisGeneratorConfigurable"/>
     </extensions>
